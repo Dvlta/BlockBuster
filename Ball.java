@@ -1,6 +1,8 @@
 public class Ball{
+
+    private int speed;
     
     public Ball(){
-        s
+        speed = 1;
     }
 }
