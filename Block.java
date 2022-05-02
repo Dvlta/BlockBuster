@@ -1,7 +1,12 @@
 public class Block {
-private int length = 5;
-private int width = 5;
-    public Block() {
+    private int length;
+    private int width;
+    private int number;
+
+    public Block(int num) {
+        length = 5;
+        width = 5;
+        number = num;
     }
 
     public int getBlockLength() {
@@ -12,4 +17,8 @@ private int width = 5;
         return width;
     }
 
+    public boolean collide(){
+        number--;
+        return number <= 0;
+    }
 }
