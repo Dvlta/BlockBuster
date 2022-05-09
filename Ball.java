@@ -1,11 +1,26 @@
-public class Ball{
+import java.awt.Color;
 
-    private int speed;
-    private double angle;
+public class Ball
+{
+    private int speedX;
+    private int speedY;
+    private int ballX;
+    private int ballY;
+    Color color;
+    private static int radius;
     
-    public Ball(){
-        speed = 1;
-        angle = 0.0;
+    public Ball(int angle, int posX, int posY)
+    {
+        speedX = (int)(5 * Math.cos(Math.atan(angle)));
+        speedX = (int)(5 * Math.sin(Math.atan(angle)));
+        ballX = posX;
+        ballY = posY;
+    }
+
+    public void updateStart(int x)
+    {
+        ballX = x;
+        //bally
     }
 
     public void collide(){
