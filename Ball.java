@@ -1,13 +1,14 @@
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Ball
 {
+    private static final int radius; // = ?
     private int speedX;
     private int speedY;
     private int ballX;
     private int ballY;
-    Color color;
-    private static int radius;
+    private static Color color = new Color(255, 255, 255);
     
     public Ball(int angle, int posX, int posY)
     {
@@ -20,14 +21,29 @@ public class Ball
     public void updateStart(int x)
     {
         ballX = x;
-        //bally
+        //ballY = ?
     }
 
-    public void collide(){
+    /**
+     * moves to the next position and changes the direction of  
+     * the speed if it collides with a Block
+     * @return 
+     */
+    public boolean move()
+    {
+        ballX += speedX;
+        ballY += speedY;
 
+        ArrayList<Block[]> blocks = Main.blocks;
     }
 
-    public void collideBottom(){
-        
+    public void changeColor(Color c)
+    {
+       color = c; 
+    }
+
+    public Color getColor()
+    {
+        return color;
     }
 }
