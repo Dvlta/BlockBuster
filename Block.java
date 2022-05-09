@@ -9,16 +9,10 @@ public class Block {
         number = num;
     }
 
-    public int getBlockLength() {
-        return length;
-    }
-
-    public int getBlockWidth() {
-        return width;
-    }
-
     public boolean collide(){
         number--;
         return number <= 0;
     }
+
+    
 }
