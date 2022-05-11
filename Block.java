@@ -13,5 +13,9 @@ public class Block
         return number <= 0;
     }
 
+    public int getSide(){
+        return side;
+    }
+
     
 }

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+import org.w3c.dom.events.MouseEvent;
 import java.awt.*;
 
 public class Main extends JPanel implements Runnable
@@ -21,8 +23,21 @@ public class Main extends JPanel implements Runnable
         super.paintComponent(g);
         if(!gameOver){
             g.setColor(Color.blue);
-            for()
+            for(int i=0;i<blocks.size();i++){
+                for(int j = 0;j<blocks.get(i).length;j++){
+                    g.drawRect(i*, j*, blocks.get(i)[j].getSide(), blocks.get(i)[j].getSide());
+                }
+            }
         }
+    }
+
+    public void mouseInput(){
+        addMouseMotionListener(new MouseInputAdapter() {
+            public void mouseDragged(MouseEvent e){
+                super.mouseDragged(e);
+
+            }
+        });
     }
 
     public void run()
