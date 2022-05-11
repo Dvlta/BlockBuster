@@ -5,7 +5,7 @@ import java.awt.*;
 public class Main extends JPanel implements Runnable
 {
     private ArrayList<Ball> balls = new ArrayList<>();
-    private static ArrayList<Block[]> blocks = new ArrayList<Block[]>(8);
+    private ArrayList<Block[]> blocks = new ArrayList<Block[]>(8);
     private ArrayList<WhiteCircle[]> whiteCircles = new ArrayList<WhiteCircle[]>(8);
     private boolean gameOver = false;
 
@@ -33,7 +33,8 @@ public class Main extends JPanel implements Runnable
     {
         JFrame myFrame = new JFrame("Space Race");
         Main myPanel = new Main();
-        myPanel.setPreferredSize(new Dimension(730,1000));
+        myPanel.setPreferredSize(new Dimension(760,1000)); 
+        // width of block = 100, width of spaces = 10
         myPanel.setBackground(Color.BLACK);
         myFrame.add(myPanel);
         myFrame.pack();
@@ -45,3 +46,6 @@ public class Main extends JPanel implements Runnable
     }
 
 }
+
+xCoord = ((ball.getX + 1) - (ball.getX() + 1) * 10) / 100
+ball.getY()
