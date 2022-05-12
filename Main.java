@@ -62,5 +62,3 @@ public class Main extends JPanel implements Runnable
 
 }
 
-xCoord = ((ball.getX + 1) - (ball.getX() + 1) * 10) / 100
-ball.getY()
