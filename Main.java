@@ -25,7 +25,7 @@ public class Main extends JPanel implements Runnable
             g.setColor(Color.blue);
             for(int i=0;i<blocks.size();i++){
                 for(int j = 0;j<blocks.get(i).length;j++){
-                    g.drawRect(i*, j*, blocks.get(i)[j].getSide(), blocks.get(i)[j].getSide());
+                    g.drawRect(paintCoord(i), paintCoord(j), blocks.get(i)[j].getSide(), blocks.get(i)[j].getSide());
                 }
             }
         }
