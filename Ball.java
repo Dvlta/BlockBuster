@@ -14,10 +14,10 @@ public class Ball
     private static Color color = new Color(255, 255, 255);
     
     /**
-     * 
-     * @param angle
-     * @param posX
-     * @param posY
+     * creates a Ball object with a launch angle and a center
+     * @param angle launch angle
+     * @param posX x-coordinate of the center
+     * @param posY y-coordinate of the center
      */
     public Ball(int angle, int posX, int posY)
     {
@@ -28,8 +28,9 @@ public class Ball
     }
 
     /**
-     * 
-     * @param x
+     * called at the start of each round. updates 
+     * the x-coordinate and sets the y-coordinate to 870
+     * @param x the new x-coordinate
      */
     public void updateStart(int x)
     {
