@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
-import org.w3c.dom.events.MouseEvent;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Main extends JPanel implements Runnable
 {
@@ -32,10 +32,11 @@ public class Main extends JPanel implements Runnable
     }
 
     public void mouseInput(){
-        addMouseMotionListener(new MouseInputAdapter() {
-            public void mouseDragged(MouseEvent e){
-                super.mouseDragged(e);
-
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                
             }
         });
     }
@@ -62,5 +63,3 @@ public class Main extends JPanel implements Runnable
 
 }
 
-xCoord = ((ball.getX + 1) - (ball.getX() + 1) * 10) / 100
-ball.getY()
