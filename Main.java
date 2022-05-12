@@ -10,6 +10,7 @@ public class Main extends JPanel implements Runnable
     private ArrayList<Block[]> blocks = new ArrayList<Block[]>(8);
     private ArrayList<WhiteCircle[]> whiteCircles = new ArrayList<WhiteCircle[]>(8);
     private boolean gameOver = false;
+    private int ballRadius = 12;
 
     public Main()
     {
@@ -25,9 +26,22 @@ public class Main extends JPanel implements Runnable
             g.setColor(Color.blue);
             for(int i=0;i<blocks.size();i++){
                 for(int j = 0;j<blocks.get(i).length;j++){
-                    g.drawRect(paintCoord(i), paintCoord(j), blocks.get(i)[j].getSide(), blocks.get(i)[j].getSide());
+                    g.drawRect(paintCoordX(i), paintCoordY(j), blocks.get(i)[j].getSide(), blocks.get(i)[j].getSide());
                 }
             }
+            g.setColor(Color.white);
+            for(int i=0;i<whiteCircles.size();i++){
+                for(int j = 0;j<whiteCircles.get(i).length;j++){
+                    int d = whiteCircles.get(i)[j].getDiameter();
+                    g.drawOval(x-d/2, y+d/2, d, d);
+                }
+            }
+            g.setColor(Color.orange);
+            for(int i=0;i<balls.size();i++){
+                Ball b = balls.get(i);
+                g.drawOval(b.getX()-ballRadius, b.getY()+ballRadius, ballRadius*2, ballRadius*2;
+            }
+
         }
     }
 
@@ -36,6 +50,9 @@ public class Main extends JPanel implements Runnable
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                if(gameOver){
+                    
+                }
                 
             }
         });
@@ -43,7 +60,9 @@ public class Main extends JPanel implements Runnable
 
     public void run()
     {
+        if(!gameOver){
 
+        }
     }
     public static void main(String[] args)
     {

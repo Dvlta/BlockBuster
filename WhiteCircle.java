@@ -2,6 +2,7 @@ public class WhiteCircle
 {
     private int x;
     private int y;
+    private static final int diameter = 60;
 
     /**
      * 
@@ -30,5 +31,10 @@ public class WhiteCircle
     public int getY()
     {
         return y;
+    }
+
+    public int getDiameter()
+    {
+        return diameter;
     }
 }
