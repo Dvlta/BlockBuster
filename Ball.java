@@ -14,8 +14,8 @@ public class Ball
     {
         speedX = (int)(5 * Math.cos(Math.atan(angle)));
         speedX = (int)(5 * Math.sin(Math.atan(angle)));
-        ballX = posX;
-        ballY = posY;
+        x = posX;
+        y = posY;
     }
 
     public void updateStart(int x)

@@ -12,10 +12,4 @@ public class Block
         number--;
         return number <= 0;
     }
-
-    public int getSide(){
-        return side;
-    }
-
-    
 }
