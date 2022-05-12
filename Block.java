@@ -23,9 +23,9 @@ public class Block
     }
 
     /**
-     * converts column number into y-coord for painting
+     * converts column number into x-coordinate for painting
      * @param c - column array coord
-     * @return grid coordinate
+     * @return x - coordinate
      */
     public int paintCoordX(int c)
     {
@@ -33,16 +33,21 @@ public class Block
     }
 
     /**
-     * converts row number into x-coord for painting
-     * @param r - row array coord
-     * @return
+     * converts row number into y-coordinate for painting
+     * @param r row array coord
+     * @return y coordinate
      */
     public int paintCoordY(int r)
     {
         return r * 110 + 100;
     }
     
-    public int getSide(){
+    /**
+     * 
+     * @return the side length
+     */
+    public int getSide()
+    {
         return side;
     }
 }
