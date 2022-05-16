@@ -19,12 +19,23 @@ public class Ball
      * @param posX x-coordinate of the center
      * @param posY y-coordinate of the center
      */
-    public Ball(int angle, int posX, int posY)
+    public Ball(double angle, int posX, int posY)
     {
         speedX = (int)(5 * Math.cos(Math.atan(angle)));
-        speedX = (int)(5 * Math.sin(Math.atan(angle)));
+        speedY = (int)(5 * Math.sin(Math.atan(angle)));
         x = posX;
         y = posY;
+    }
+
+    /**
+     * updates the x and y components of speed 
+     * based on the launch angle
+     * @param angle launch angle
+     */
+    public void changeAngle(double angle)
+    {
+        speedX = (int)(5 * Math.cos(Math.atan(angle)));
+        speedY = (int)(5 * Math.sin(Math.atan(angle)));
     }
 
     /**
