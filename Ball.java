@@ -67,7 +67,7 @@ public class Ball
      */
     public int stopped()
     {
-        return stopped();
+        return stopped;
     }
 
     /**
