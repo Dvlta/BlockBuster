@@ -41,7 +41,7 @@ public class Main extends JPanel implements Runnable
                 Ball b = balls.get(i);
                 g.drawOval(b.getX()-ballRadius, b.getY()+ballRadius, ballRadius*2, ballRadius*2);
             }
-
+            
         }
     }
 
