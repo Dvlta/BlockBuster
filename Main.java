@@ -25,7 +25,8 @@ public class Main extends JPanel implements Runnable
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        if(!gameOver){
+        if(!gameOver)
+        {
             g.setColor(Color.blue);
             for(int i=0;i<blocks.size();i++){
                 for(int j = 0;j<blocks.get(i).length;j++){
@@ -43,8 +44,10 @@ public class Main extends JPanel implements Runnable
             for(int i=0;i<balls.size();i++){
                 Ball b = balls.get(i);
                 g.drawOval(b.getX()-ballRadius, b.getY()+ballRadius, ballRadius*2, ballRadius*2);
+
+            g.setColor(Color.white);
+            g.drawRect(740, 980, 10, 10);
             }
-            
         }
     }
 
@@ -76,7 +79,7 @@ public class Main extends JPanel implements Runnable
                 int start = (int)(Math.random() * 751) + 5;
                 if (round == 1)
                 {
-                    balls.add
+                    balls.add(new Ball(0, start));
                 }
                 for(int i = 0; i<7; i++){
                     int n = (int)Math.random()*7;

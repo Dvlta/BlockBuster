@@ -19,12 +19,12 @@ public class Ball
      * @param posX x-coordinate of the center
      * @param posY y-coordinate of the center
      */
-    public Ball(double angle, int posX, int posY)
+    public Ball(double angle, int posX)
     {
         speedX = (int)(5 * Math.cos(Math.atan(angle)));
         speedY = (int)(5 * Math.sin(Math.atan(angle)));
         x = posX;
-        y = posY;
+        y = 870;
     }
 
     /**
