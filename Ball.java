@@ -7,10 +7,13 @@ import java.util.ArrayList;
 public class Ball
 {
     private static final int radius = 12;
+    private static int stopped = 0;
     private int speedX;
     private int speedY;
     private int x; 
     private int y;
+    private int nextX;
+    private int nextY;
     private static Color color = new Color(255, 255, 255);
     
     /**
@@ -50,12 +53,40 @@ public class Ball
     }
 
     /**
+     * 
+     * @return if the ball is in motion
+     */
+    public boolean inMotion()
+    {
+        return nextY <= 760;
+    }
+
+    /**
+     * 
+     * @return number of stopped balls
+     */
+    public int stopped()
+    {
+        return stopped();
+    }
+
+    /**
+     * sets the number of stopped balls to 0
+     */
+    public void reset()
+    {
+        stopped = 0;
+    }
+    /**
      * moves to the next position and changes the direction of  
      * the speed if it collides with the walls
      * @return an array of with the grid coordinates of the next move
      */
     public int[] move(ArrayList<Block[]> blocks)
     {
+        if (nextY > 760)
+            return null;
+            
         x += speedX;
         y += speedY;
 
@@ -65,9 +96,6 @@ public class Ball
         if (speedX > 0)
             if (x + radius + speedX > 730)
                 speedX *= -1;
-
-        int nextX = -1;
-        int nextY = -1;
 
         if (speedY < 0)
             nextY = y - radius + speedY;
@@ -81,9 +109,13 @@ public class Ball
 
         if (nextX < 0 || nextX > 760)
             speedX *= -1;
-        if (nextY < 0 || nextY > 760)
+        if (nextY < 0)
             speedY *= -1;
-        
+
+
+        if (nextY > 760)
+            stopped++;
+
         
         int arrayX = -1;
         int arrayY = -1;
