@@ -41,7 +41,11 @@ public class Block
     {
         return r * 110 + 100;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> b8588769d89ef06db9cc4ce1ee704dcbce313c75
     /**
      * 
      * @return the side length

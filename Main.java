@@ -26,7 +26,7 @@ public class Main extends JPanel implements Runnable
             g.setColor(Color.blue);
             for(int i=0;i<blocks.size();i++){
                 for(int j = 0;j<blocks.get(i).length;j++){
-                    g.drawRect(paintCoordX(i), paintCoordY(j), blocks.get(i)[j].getSide(), blocks.get(i)[j].getSide());
+                    g.drawRect(blocks.get(i)[j].paintCoordX(i), blocks.get(i)[j].paintCoordY(j), blocks.get(i)[j].getSide(), blocks.get(i)[j].getSide());
                 }
             }
             g.setColor(Color.white);
@@ -39,7 +39,7 @@ public class Main extends JPanel implements Runnable
             g.setColor(Color.orange);
             for(int i=0;i<balls.size();i++){
                 Ball b = balls.get(i);
-                g.drawOval(b.getX()-ballRadius, b.getY()+ballRadius, ballRadius*2, ballRadius*2;
+                g.drawOval(b.getX()-ballRadius, b.getY()+ballRadius, ballRadius*2, ballRadius*2);
             }
 
         }
@@ -51,7 +51,7 @@ public class Main extends JPanel implements Runnable
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 if(gameOver){
-                    
+                    gameOver = false;
                 }
                 
             }
