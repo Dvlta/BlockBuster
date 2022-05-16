@@ -12,6 +12,7 @@ public class Main extends JPanel implements Runnable
     private boolean gameOver = false;
     private final static int ballRadius = 12;
     private int round;
+    private boolean inPlay = false;
 
     public Main()
     {
@@ -66,13 +67,23 @@ public class Main extends JPanel implements Runnable
         {
             if (!gameOver)
             {
+                if(inPlay){
+                    for(Ball b:balls){
+                        int[] arr = b.move(blocks);
+                    }
+                }
                 round++;
                 int start = (int)(Math.random() * 751) + 5;
                 if (round == 1)
                 {
                     balls.add
                 }
-
+                for(int i = 0; i<7; i++){
+                    int n = (int)Math.random()*7;
+                    if(blocks.get(0)[n] != null){
+                        blocks.get(0)[n] = new Block((int)(Math.random()*round*2)+1);
+                    }
+                }
             }
 
         }
