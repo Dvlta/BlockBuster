@@ -40,7 +40,7 @@ public class Ball
 
     /**
      * moves to the next position and changes the direction of  
-     * the speed if it collides with a Block or the walls
+     * the speed if it collides with the walls
      * @return an array of with the grid coordinates of the next move
      */
     public int[] move(ArrayList<Block[]> blocks)
