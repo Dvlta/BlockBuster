@@ -72,8 +72,18 @@ public class Main extends JPanel implements Runnable
             {
                 if(inPlay){
                     for(Ball b:balls){
+                        if(b.getInMotion){
+
+                        }
                         int[] arr = b.move(blocks);
+                        Block blk = blocks.get(arr[0])[arr[1]];
+                        if(blk != null){
+                            if(blk.collide()){
+                                blocks.get(arr[0])[arr[1]] = null;
+                            }
+                        }
                     }
+                    continue;
                 }
                 round++;
                 int start = (int)(Math.random() * 751) + 5;
@@ -88,7 +98,11 @@ public class Main extends JPanel implements Runnable
                     }
                 }
             }
+            try {
+                Thread.sleep(4);
+            } catch (Exception e) {
 
+            }
         }
     }
     public static void main(String[] args)
