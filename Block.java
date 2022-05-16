@@ -40,6 +40,7 @@ public class Block
     public int paintCoordY(int r)
     {
         return r * 110 + 100;
+    }
 
     /**
      * 
