@@ -72,7 +72,7 @@ public class Main extends JPanel implements Runnable
             {
                 if(inPlay){
                     for(Ball b:balls){
-                        if(b.getInMotion){
+                        if(b.inMotion()){
 
                         }
                         int[] arr = b.move(blocks);
