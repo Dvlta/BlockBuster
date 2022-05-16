@@ -73,13 +73,16 @@ public class Main extends JPanel implements Runnable
                 if(inPlay){
                     for(Ball b:balls){
                         if(b.inMotion()){
-
-                        }
-                        int[] arr = b.move(blocks);
-                        Block blk = blocks.get(arr[0])[arr[1]];
-                        if(blk != null){
-                            if(blk.collide()){
-                                blocks.get(arr[0])[arr[1]] = null;
+                            int[] arr = b.move(blocks);
+                            Block blk = blocks.get(arr[0])[arr[1]];
+                            if(blk != null){
+                                if(blk.collide()){
+                                    blocks.get(arr[0])[arr[1]] = null;
+                                }
+                            }
+                        }else{
+                            if(b.stopped() == balls.size()){
+                                inPlay = false;
                             }
                         }
                     }
@@ -96,6 +99,10 @@ public class Main extends JPanel implements Runnable
                     if(blocks.get(0)[n] != null){
                         blocks.get(0)[n] = new Block((int)(Math.random()*round*2)+1);
                     }
+                }
+                balls.get(0).reset();
+                for(Ball b:balls){
+                    b.updateStart(start);
                 }
             }
             try {
