@@ -6,13 +6,18 @@ public class WhiteCircle
 
     /**
      * 
-     * @param x the col array index
-     * @param y the row array index
+     * @param row the row array index
+     * @param col the col array index
      */
-    public WhiteCircle(int x, int y)
+    public WhiteCircle(int row, int col)
     {
-        this.x = x * 110;
-        this.y = y * 110 + 100;
+        this.x = col * 110 + 20;
+        this.y = row * 110 + 20;
+    }
+
+    public void incrementRow()
+    {
+        x += 110;
     }
 
     /**
@@ -33,7 +38,7 @@ public class WhiteCircle
         return y;
     }
 
-    public int getDiameter()
+    public static int getDiameter()
     {
         return diameter;
     }

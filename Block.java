@@ -23,31 +23,20 @@ public class Block
     }
 
     /**
-     * converts column number into x-coordinate for painting
-     * @param c - column array coord
-     * @return x - coordinate
+     * converts array number into a coordinate for painting
+     * @param c -  array coord
+     * @return coordinate
      */
-    public int paintCoordX(int c)
+    public int paintCoord(int c)
     {
         return c * 110;
     }
 
     /**
-     * converts row number into y-coordinate for painting
-     * @param r row array coord
-     * @return y coordinate
-     */
-    public int paintCoordY(int r)
-    {
-        return r * 110 + 100;
-    }
-
-    
-    /**
      * 
      * @return the side length
      */
-    public int getSide()
+    public static int getSide()
     {
         return side;
     }

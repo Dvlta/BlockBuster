@@ -1,16 +1,16 @@
-public class ChangeColor<Color> {
+import java.awt.Color;
+public class ColorNode {
     private Color color;
 
-    private ChangeColor<Color> previous;
-
-    private ChangeColor<Color> next;
+    private ColorNode previous;
+    private ColorNode next;
     /**
      * constructs a linkedlist of Color objects
      * @param initialColor - the initial color
      * @param initialPrevious - the previous of the initial color
      * @param intialNext - the next color of the initial color
      */
-    public ChangeColor (Color initialColor, ChangeColor<Color> initialPrevious, ChangeColor<Color> intialNext) {
+    public ColorNode (Color initialColor, ColorNode initialPrevious, ColorNode intialNext) {
         color = initialColor;
         previous = initialPrevious;
         next = intialNext;
@@ -26,21 +26,21 @@ public class ChangeColor<Color> {
      * it gets the color of the previous ball's object
      * @return color of the previous ball object
      */
-    public ChangeColor<Color> getPrevious() {
+    public ColorNode getPrevious() {
         return previous;
     }
     /**
      * it gets the color of the next ball object
      * @return color of the next ball object
      */
-    public ChangeColor<Color> getNext() {
+    public ColorNode getNext() {
         return next;
     }
     /**
      * it changes the color of the previous ball object to a new color
      * @param theNewPrev the new color the previous color is going to change to
      */
-    public void setPrevious( ChangeColor<Color> theNewPrev) {
+    public void setPrevious( ColorNode theNewPrev) {
         previous = theNewPrev;
     }
 
@@ -48,7 +48,7 @@ public class ChangeColor<Color> {
      * it changes the color of the next ball object to a new color
      * @param theNewNext the new color the next color is going to change to
      */
-    public void setNext(ChangeColor<Color> theNewNext) {
+    public void setNext(ColorNode theNewNext) {
         next = theNewNext;
     }
 }

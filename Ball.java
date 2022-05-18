@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.util.ArrayList;
 
 /**
  * 
@@ -14,7 +13,7 @@ public class Ball
     private int y;
     private int nextX;
     private int nextY;
-    private static Color color = new Color(255, 255, 255);
+    private static Color color = Color.white;
     
     /**
      * creates a Ball object with a launch angle and a center
@@ -27,7 +26,12 @@ public class Ball
         speedX = (int)(5 * Math.cos(Math.atan(angle)));
         speedY = (int)(5 * Math.sin(Math.atan(angle)));
         x = posX;
-        y = 870;
+        y = 820;
+    }
+
+    public static int getRadius()
+    {
+        return radius;
     }
 
     /**
@@ -82,11 +86,8 @@ public class Ball
      * the speed if it collides with the walls
      * @return an array of with the grid coordinates of the next move
      */
-    public int[] move(ArrayList<Block[]> blocks)
-    {
-        if (nextY > 760)
-            return null;
-            
+    public int[] move()
+    {   
         x += speedX;
         y += speedY;
 
@@ -150,7 +151,7 @@ public class Ball
      * 
      * @param c - the color to change to
      */
-    public void changeColor(Color c)
+    public static void changeColor(Color c)
     {
        color = c; 
     }
@@ -159,7 +160,7 @@ public class Ball
      * 
      * @return the color
      */
-    public Color getColor()
+    public static Color getColor()
     {
         return color;
     }
