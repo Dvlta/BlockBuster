@@ -7,12 +7,12 @@ public class Ball
 {
     private static final int radius = 12;
     private static int stopped = 0;
-    private int speedX;
-    private int speedY;
-    private int x; 
-    private int y;
-    private int nextX;
-    private int nextY;
+    private double speedX;
+    private double speedY;
+    private double x; 
+    private double y;
+    private double nextX;
+    private double nextY;
     private static Color color = Color.white;
     
     /**
@@ -23,10 +23,15 @@ public class Ball
      */
     public Ball(double angle, int posX)
     {
-        speedX = (int)(5 * Math.cos(Math.atan(angle)));
-        speedY = (int)(5 * Math.sin(Math.atan(angle)));
+        speedX = (2 * Math.cos(Math.toRadians(angle)));
+        speedY = -(2 * Math.sin(Math.toRadians(angle)));
         x = posX;
         y = 820;
+    }
+
+    public void nextRow()
+    {
+        y += 110;
     }
 
     public static int getRadius()
@@ -41,19 +46,20 @@ public class Ball
      */
     public void changeAngle(double angle)
     {
-        speedX = (int)(5 * Math.cos(Math.atan(angle)));
-        speedY = (int)(5 * Math.sin(Math.atan(angle)));
+        speedX = 2 * Math.cos(Math.toRadians(angle));
+        speedY = -2 * Math.sin(Math.toRadians(angle));
+        System.out.println(angle + " " + speedX + " " + speedY);
     }
 
     /**
      * called at the start of each round. updates 
-     * the x-coordinate and sets the y-coordinate to 870
+     * the x-coordinate and sets the y-coordinate to 820
      * @param x the new x-coordinate
      */
     public void updateStart(int x)
     {
         this.x = x;
-        y = 870;
+        y = 820;
     }
 
     /**
@@ -62,9 +68,18 @@ public class Ball
      */
     public boolean inMotion()
     {
-        return nextY <= 760;
+        return nextY <= 820;
     }
 
+    public void reverseX()
+    {
+        speedX *= -1;
+    }
+
+    public void reverseY()
+    {
+        speedY *= -1;
+    }
     /**
      * 
      * @return number of stopped balls
@@ -77,7 +92,7 @@ public class Ball
     /**
      * sets the number of stopped balls to 0
      */
-    public void reset()
+    public static void reset()
     {
         stopped = 0;
     }
@@ -88,6 +103,7 @@ public class Ball
      */
     public int[] move()
     {   
+        //System.out.println("move" + x + " " + y);
         x += speedX;
         y += speedY;
 
@@ -114,7 +130,7 @@ public class Ball
             speedY *= -1;
 
 
-        if (nextY > 760)
+        if (nextY > 820)
             stopped++;
 
         
@@ -122,8 +138,9 @@ public class Ball
         int arrayY = -1;
         if (!(nextX / 110 < 110 && nextX / 110 > 100) && !(nextY / 110 < 110 && nextY / 110 > 100))
             {
-                arrayX = (nextX - nextX / 110 * 10) / 100;
-                arrayY = (nextY - nextY / 110 * 10) / 100;
+                arrayX = ((int)nextX - (int)nextX / 110 * 10) / 100;
+                arrayY = ((int)nextY - (int)nextY / 110 * 10) / 100;
+                //System.out.println("ball position" + nextX + " " + nextY +" " + arrayX + " " + arrayY);
             }
 
         return new int[]{arrayX, arrayY};
@@ -133,7 +150,7 @@ public class Ball
      * 
      * @return x-coord
      */
-    public int getX()
+    public double getX()
     {
         return x;
     }
@@ -142,9 +159,19 @@ public class Ball
      * 
      * @return y-coord
      */
-    public int getY()
+    public double getY()
     {
         return y;
+    }
+
+    public double getNextX()
+    {
+        return nextX;
+    }
+    
+    public double getNextY()
+    {
+        return nextY;
     }
 
     /**

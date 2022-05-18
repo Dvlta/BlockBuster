@@ -12,6 +12,7 @@ public class Block
         number = num;
     }
 
+
     /**
      * decrements the number by 1
      * @return if the number is <= 0

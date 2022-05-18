@@ -8,16 +8,16 @@ import java.awt.event.MouseEvent;
 public class Main extends JPanel implements Runnable
 {
     private ArrayList<Ball> balls = new ArrayList<>();
-    private ArrayList<Block[]> blocks = new ArrayList<Block[]>(7);
-    private ArrayList<WhiteCircle[]> whiteCircles = new ArrayList<WhiteCircle[]>(7);
+    private ArrayList<Block[]> blocks = new ArrayList<Block[]>(8);
+    private ArrayList<WhiteCircle[]> whiteCircles = new ArrayList<WhiteCircle[]>(8);
     private boolean gameOver = false;
     private final static int ballRadius = 12;
     private int round;
     private boolean inPlay = false;
     private boolean colorScreen = false;
-    private ColorNode node;
-
-    public Main()
+    private ColorNode node; 
+ 
+    public Main() 
     {
         for (int i = 0; i < 8; i++)
         {
@@ -106,8 +106,8 @@ public class Main extends JPanel implements Runnable
             g.setColor(Ball.getColor());
             for (Ball b: balls)
             {
-                g.fillOval(b.getX() - ballRadius, b.getY() - ballRadius, ballRadius*2, ballRadius*2);
-                System.out.println("Draw ball at "+ b.getX() + " " + b.getY());
+                g.fillOval((int)(b.getX() - ballRadius), (int)(b.getY() - ballRadius), ballRadius*2, ballRadius*2);
+                //System.out.println("Draw ball at "+ b.getX() + " " + b.getY());
             }
             
             
@@ -128,20 +128,15 @@ public class Main extends JPanel implements Runnable
                 whiteCircles.add(new WhiteCircle[7]);
 
                 //end game if the last row is not empty
-                if (blocks.size() == 8)
-                {
-                    Block[] blks = blocks.remove(7);
-                    for (Block block: blks)
-                        if (block != null)
-                            gameOver = true;
-                }
-                if (whiteCircles.size() == 8)
-                {
-                    WhiteCircle[] circles = whiteCircles.remove(7);
-                    for (WhiteCircle w: circles)
-                        if (w != null)
-                            gameOver = true;
-                }
+                Block[] blks = blocks.remove(7);
+                for (Block block: blks)
+                    if (block != null)
+                        gameOver = true;
+
+                WhiteCircle[] circles = whiteCircles.remove(7);
+                for (WhiteCircle w: circles)
+                    if (w != null)
+                        gameOver = true;
                 if (gameOver)
                     break;
 
@@ -152,12 +147,25 @@ public class Main extends JPanel implements Runnable
                 {
                     balls.add(new Ball(0, start));
                 }
+                else
+                {
+                    for (Ball b: balls)
+                    {
+                        b.nextRow();
+                    }
+                    for (int i = 0; i < blocks.size(); i++)
+                        for (int j = 0; j < blocks.get(i).length; j++)
+                            if (whiteCircles.get(i)[j] != null)
+                                whiteCircles.get(i)[j].incrementRow();
+                }
+
                 for (int i = 0; i < 7; i++)
                 {
                     int n = (int)(Math.random() * 7);
                     if (blocks.get(0)[n] == null)
                     {
-                        blocks.get(0)[n] = new Block((int)(Math.random() * round * 2) + 1);
+                        blocks.get(0)[n] = new Block(1);
+                        //new Block((int)(Math.random() * round * 2) + 1);
                     }
                 }
                 while (true)
@@ -180,43 +188,61 @@ public class Main extends JPanel implements Runnable
                 
                 //waits until the mouse has been clicked and the game is in play
                 while (!inPlay) {
+                    //System.out.println("wait");
                     try {
-                        Thread.sleep(4);
+                        Thread.sleep(100);
                     } catch (Exception e) {
                     }
                 }
-
+                //System.out.println("move");
                 //keeps going until all the balls have stopped
                 int add = 0;
                 while (balls.size() > balls.get(0).stopped())
                 {
+                    //System.out.println(balls.size() > balls.get(0).stopped());
                     inPlay = true;
                     for(Ball b:balls){
                         if(b.inMotion())
                         {
                             Block blk;
                             int[] arr = b.move();
-                            if (arr[0] != -1 && arr[0] != -1)
+
+                            if (arr[0] != -1 && arr[1] != -1)
                             {
-                                blk = blocks.get(arr[0])[arr[1]];
+                                blk = blocks.get(arr[1])[arr[0]];
                                 if (blk != null)
                                 {
-                                    if(blk.collide())
+                                    if (b.getX() > blk.paintCoord(arr[0]) + Block.getSide() || b.getX() < blk.paintCoord(arr[0]))
                                     {
-                                        blocks.get(arr[0])[arr[1]] = null;
+                                        b.reverseX();
+                                        System.out.println("bounce off side");
+                                    }
+                                    else if (b.getY() > blk.paintCoord(arr[1]) + Block.getSide()|| b.getY() < blk.paintCoord(arr[1]))
+                                    {
+                                        b.reverseY();
+                                        System.out.println("bounce off top/bottom");
+                                    }
+
+                                    if (blk.collide())
+                                    {
+                                        blocks.get(arr[1])[arr[0]] = null;
                                     }
                                 }
                                 else     
                                 {
-                                    WhiteCircle w = whiteCircles.get(arr[0])[arr[1]];
+                                    WhiteCircle w = whiteCircles.get(arr[1])[arr[0]];
                                     if (w != null && Math.sqrt(Math.pow(b.getX() - w.getX(), 2) + 
                                         Math.pow(b.getY() - w.getY(), 2)) <=
                                         Ball.getRadius() + WhiteCircle.getDiameter() / 2)
                                     {
-                                        whiteCircles.get(arr[0])[arr[1]] = null;
+                                        whiteCircles.get(arr[1])[arr[0]] = null;
                                         add++;
                                     }
                                 }                           
+                            }
+                            try {
+                                Thread.sleep(30);
+                            } catch (Exception e) {
                             }
                         }
                         //repaint again to update all the balls, sets time delay
@@ -228,6 +254,8 @@ public class Main extends JPanel implements Runnable
                         }
                     }
                 }
+                Ball.reset();
+                System.out.println("not inplay");
                 inPlay = false;
                 for (int i = 0; i < add; i++)
                     balls.add(new Ball(0, 0 ));
@@ -250,10 +278,12 @@ public class Main extends JPanel implements Runnable
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                if (y < 870 && !myPanel.inPlay())
+                System.out.println("mouse clicked at " + x + " " + y);
+
+                if (y < 820 && !myPanel.inPlay())
                 {
-                    double angle = Math.atan2(myPanel.getBalls().get(0).getY() - y, 
-                        x - myPanel.getBalls().get(0).getX());
+                    double angle = Math.toDegrees(Math.atan2(myPanel.getBalls().get(0).getY() - y, 
+                        x - myPanel.getBalls().get(0).getX()));
                     if (angle < 0)
                         angle += 180;
                     for (Ball b: myPanel.getBalls())
@@ -266,7 +296,8 @@ public class Main extends JPanel implements Runnable
                 {
                     myPanel.changeColorScreen();
                     myFrame.repaint();
-                }
+                }                 
+
             }
 
             public void mousePressed(MouseEvent e) {}
