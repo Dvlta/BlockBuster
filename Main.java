@@ -123,6 +123,7 @@ public class Main extends JPanel implements Runnable
             //if not over, begin a new round
             if (!gameOver)
             {
+<<<<<<< HEAD
                 //add an empty new row of blocks and whiteCircles to the arrays
                 blocks.add(new Block[7]);
                 whiteCircles.add(new WhiteCircle[7]);
@@ -134,6 +135,25 @@ public class Main extends JPanel implements Runnable
                     for (Block block: blks)
                         if (block != null)
                             gameOver = true;
+=======
+                if(inPlay){
+                    for(Ball b:balls){
+                        if(b.inMotion()){
+                            int[] arr = b.move(blocks);
+                            Block blk = blocks.get(arr[0])[arr[1]];
+                            if(blk != null){
+                                if(blk.collide()){
+                                    blocks.get(arr[0])[arr[1]] = null;
+                                }
+                            }
+                        }else{
+                            if(b.stopped() == balls.size()){
+                                inPlay = false;
+                            }
+                        }
+                    }
+                    continue;
+>>>>>>> 1f0d168bde40a74d8442b114397be0d6b07943a6
                 }
                 if (whiteCircles.size() == 8)
                 {
@@ -185,6 +205,17 @@ public class Main extends JPanel implements Runnable
                     } catch (Exception e) {
                     }
                 }
+<<<<<<< HEAD
+=======
+                balls.get(0).reset();
+                for(Ball b:balls){
+                    b.updateStart(start);
+                }
+            }
+            try {
+                Thread.sleep(4);
+            } catch (Exception e) {
+>>>>>>> 1f0d168bde40a74d8442b114397be0d6b07943a6
 
                 //keeps going until all the balls have stopped
                 int add = 0;
