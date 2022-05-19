@@ -17,7 +17,7 @@ public class WhiteCircle
 
     public void incrementRow()
     {
-        x += 110;
+        y += 110;
     }
 
     /**

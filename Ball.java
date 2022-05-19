@@ -68,7 +68,7 @@ public class Ball
      */
     public boolean inMotion()
     {
-        return nextY <= 820;
+        return y <= 820;
     }
 
     public void reverseX()

@@ -160,7 +160,7 @@ public class Main extends JPanel implements Runnable
                                 whiteCircles.get(i)[j].incrementRow();
                 }
 
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     int n = (int)(Math.random() * 7);
                     if (blocks.get(0)[n] == null)
@@ -195,18 +195,27 @@ public class Main extends JPanel implements Runnable
                     } catch (Exception e) {
                     }
                 }
-                //System.out.println("move");
+                System.out.println("move");
                 //keeps going until all the balls have stopped
                 int add = 0;
+                int moveNum = 0;
                 while (balls.size() > balls.get(0).stopped())
                 {
+                    System.out.println(moveNum);
                     //System.out.println(balls.size() > balls.get(0).stopped());
                     inPlay = true;
+                    moveNum++;
                     for(Ball b : balls) {
                         if (b.inMotion()) {
                             Block blk;
+                            if (moveNum == 1 && !b.equals(balls.get(0))) {
+                                System.out.println("delay");
+                                try {
+                                    Thread.sleep(300);
+                                } catch (Exception e) {
+                                }   
+                            }
                             int[] arr = b.move();
-
                             if (arr[0] != -1 && arr[1] != -1)
                             {
                                 blk = blocks.get(arr[1])[arr[0]];
@@ -239,10 +248,6 @@ public class Main extends JPanel implements Runnable
                                     }
                                 }                           
                             }
-                            try {
-                                Thread.sleep(1);
-                            } catch (Exception e) {
-                            }
                         }
                         //repaint again to update all the balls, sets time delay
                         repaint();
@@ -253,7 +258,7 @@ public class Main extends JPanel implements Runnable
                         }
                     }
                 }
-
+                repaint();
                 Ball.reset();
                 System.out.println("not inplay");
                 inPlay = false;
