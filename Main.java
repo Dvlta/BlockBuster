@@ -82,8 +82,8 @@ public class Main extends JPanel implements Runnable
         else if (!gameOver)
         {
             g.setColor(Color.blue);
-            for(int i=0;i<blocks.size();i++){
-                for(int j = 0;j<blocks.get(i).length;j++){
+            for(int i = 0; i < blocks.size(); i++) {
+                for(int j = 0; j < blocks.get(i).length; j++) {
                     if (blocks.get(i)[j] != null)
                     {
                         g.fillRect(blocks.get(i)[j].paintCoord(j), blocks.get(i)[j].paintCoord(i), 
@@ -91,7 +91,7 @@ public class Main extends JPanel implements Runnable
                     }
                 }
             }
-
+   
             g.setColor(Color.white);
             for(int i=0;i<whiteCircles.size();i++){
                 for(int j = 0;j<whiteCircles.get(i).length;j++){
@@ -124,8 +124,8 @@ public class Main extends JPanel implements Runnable
             if (!gameOver)
             {
                 //add an empty new row of blocks and whiteCircles to the arrays
-                blocks.add(new Block[7]);
-                whiteCircles.add(new WhiteCircle[7]);
+                blocks.add(0, new Block[7]);
+                whiteCircles.add(0, new WhiteCircle[7]);
 
                 //end game if the last row is not empty
                 Block[] blks = blocks.remove(7);
@@ -201,17 +201,15 @@ public class Main extends JPanel implements Runnable
                 {
                     //System.out.println(balls.size() > balls.get(0).stopped());
                     inPlay = true;
-                    for(Ball b:balls){
-                        if(b.inMotion())
-                        {
+                    for(Ball b : balls) {
+                        if (b.inMotion()) {
                             Block blk;
                             int[] arr = b.move();
 
                             if (arr[0] != -1 && arr[1] != -1)
                             {
                                 blk = blocks.get(arr[1])[arr[0]];
-                                if (blk != null)
-                                {
+                                if (blk != null) {
                                     if (b.getX() > blk.paintCoord(arr[0]) + Block.getSide() || b.getX() < blk.paintCoord(arr[0]))
                                     {
                                         b.reverseX();
@@ -241,7 +239,7 @@ public class Main extends JPanel implements Runnable
                                 }                           
                             }
                             try {
-                                Thread.sleep(30);
+                                Thread.sleep(1);
                             } catch (Exception e) {
                             }
                         }
@@ -254,14 +252,17 @@ public class Main extends JPanel implements Runnable
                         }
                     }
                 }
+
                 Ball.reset();
                 System.out.println("not inplay");
                 inPlay = false;
-                for (int i = 0; i < add; i++)
+                for (int i = 0; i < add; i++) {
                     balls.add(new Ball(0, 0 ));
+                }
             }
         }
     }
+
     public static void main(String[] args)
     {
         JFrame myFrame = new JFrame("BlockBuster");
@@ -286,7 +287,7 @@ public class Main extends JPanel implements Runnable
                         x - myPanel.getBalls().get(0).getX()));
                     if (angle < 0)
                         angle += 180;
-                    for (Ball b: myPanel.getBalls())
+                    for (Ball b : myPanel.getBalls())
                     {
                         b.changeAngle(angle);
                     }
@@ -308,14 +309,12 @@ public class Main extends JPanel implements Runnable
 
             public void mouseEntered(MouseEvent e) {}            
         };
+
         myFrame.addMouseListener(m);
         myFrame.pack();
         myFrame.setLocationRelativeTo(null);
         myFrame.setVisible(true);
         new Thread(myPanel).start();
-
-
     }
-
 }
 

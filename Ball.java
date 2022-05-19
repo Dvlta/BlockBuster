@@ -23,8 +23,8 @@ public class Ball
      */
     public Ball(double angle, int posX)
     {
-        speedX = (2 * Math.cos(Math.toRadians(angle)));
-        speedY = -(2 * Math.sin(Math.toRadians(angle)));
+        speedX = (4 * Math.cos(Math.toRadians(angle)));
+        speedY = -(4 * Math.sin(Math.toRadians(angle)));
         x = posX;
         y = 820;
     }
@@ -46,8 +46,8 @@ public class Ball
      */
     public void changeAngle(double angle)
     {
-        speedX = 2 * Math.cos(Math.toRadians(angle));
-        speedY = -2 * Math.sin(Math.toRadians(angle));
+        speedX = 4 * Math.cos(Math.toRadians(angle));
+        speedY = -4 * Math.sin(Math.toRadians(angle));
         System.out.println(angle + " " + speedX + " " + speedY);
     }
 
