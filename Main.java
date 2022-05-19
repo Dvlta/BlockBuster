@@ -216,14 +216,9 @@ public class Main extends JPanel implements Runnable
                         Ball b = balls.get(idx);
                         if (b.inMotion()) {
                             Block blk;
-<<<<<<< HEAD
                             if (idx != 0 && balls.get(idx-1).inMotion() && balls.get(idx - 1).getMoveNum() >= 0 && balls.get(idx - 1).getMoveNum() <= 6) {
                                 System.out.println("delay ");
                                 continue;
-=======
-                            if (moveNum == 1 && !b.equals(balls.get(0))) {
-                                  
->>>>>>> 59eda3a04eba390594d95c88ab4be53db772db53
                             }
                             int[] arr = b.move();
                             if (arr[0] != -1 && arr[1] != -1)
