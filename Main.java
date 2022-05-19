@@ -88,6 +88,7 @@ public class Main extends JPanel implements Runnable
                     {
                         g.fillRect(blocks.get(i)[j].paintCoord(j), blocks.get(i)[j].paintCoord(i), 
                             Block.getSide(), Block.getSide());
+                        g.drawString(blocks.get(i)[j].getNum() + "", blocks.get(i)[j].paintCoord(j)-10, blocks.get(i)[j].paintCoord(i)+10);
                     }
                 }
             }

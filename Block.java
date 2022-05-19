@@ -41,4 +41,8 @@ public class Block
     {
         return side;
     }
+
+    public int getNum(){
+        return number;
+    }
 }
