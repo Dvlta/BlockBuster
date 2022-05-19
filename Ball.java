@@ -1,5 +1,4 @@
 import java.awt.Color;
-
 /**
  * 
  */
@@ -14,6 +13,7 @@ public class Ball
     private double nextX;
     private double nextY;
     private static Color color = Color.white;
+    private int moveNum;
     
     /**
      * creates a Ball object with a launch angle and a center
@@ -23,10 +23,20 @@ public class Ball
      */
     public Ball(double angle, int posX)
     {
-        speedX = (4 * Math.cos(Math.toRadians(angle)));
-        speedY = -(4 * Math.sin(Math.toRadians(angle)));
+        speedX = (6 * Math.cos(Math.toRadians(angle)));
+        speedY = -(6 * Math.sin(Math.toRadians(angle)));
         x = posX;
         y = 820;
+        moveNum = 0;
+    }
+
+    public int getMoveNum()
+    {
+        return moveNum;
+    }
+    public void resetMoveNum()
+    {
+        moveNum = 0;
     }
 
     public void nextRow()
@@ -46,8 +56,8 @@ public class Ball
      */
     public void changeAngle(double angle)
     {
-        speedX = 4 * Math.cos(Math.toRadians(angle));
-        speedY = -4 * Math.sin(Math.toRadians(angle));
+        speedX = 6 * Math.cos(Math.toRadians(angle));
+        speedY = -6 * Math.sin(Math.toRadians(angle));
         System.out.println(angle + " " + speedX + " " + speedY);
     }
 
@@ -107,6 +117,7 @@ public class Ball
         x += speedX;
         y += speedY;
 
+        moveNum++;
         if (speedX < 0)
             if (x - radius + speedX < 0)
                 speedX *= -1;

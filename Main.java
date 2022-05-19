@@ -107,7 +107,6 @@ public class Main extends JPanel implements Runnable
             for (Ball b: balls)
             {
                 g.fillOval((int)(b.getX() - ballRadius), (int)(b.getY() - ballRadius), ballRadius*2, ballRadius*2);
-                //System.out.println("Draw ball at "+ b.getX() + " " + b.getY());
             }
             
             
@@ -168,13 +167,16 @@ public class Main extends JPanel implements Runnable
                         //new Block((int)(Math.random() * round * 2) + 1);
                     }
                 }
-                while (true)
+                if (Math.random() < 0.5)
                 {
-                    int n = (int)(Math.random() * 7);
-                    if (blocks.get(0)[n] == null)
+                    while (true)
                     {
-                        whiteCircles.get(0)[n] = new WhiteCircle(0, n);
-                        break;
+                        int n = (int)(Math.random() * 7);
+                        if (blocks.get(0)[n] == null)
+                        {
+                            whiteCircles.get(0)[n] = new WhiteCircle(0, n);
+                            break;
+                        }
                     }
                 }
 
@@ -197,22 +199,17 @@ public class Main extends JPanel implements Runnable
                 System.out.println("move");
                 //keeps going until all the balls have stopped
                 int add = 0;
-                int moveNum = 0;
                 while (balls.size() > balls.get(0).stopped())
                 {
-                    System.out.println(moveNum);
                     //System.out.println(balls.size() > balls.get(0).stopped());
                     inPlay = true;
-                    moveNum++;
-                    for(Ball b : balls) {
+                    for (int idx = 0; idx < balls.size(); idx++) {
+                        Ball b = balls.get(idx);
                         if (b.inMotion()) {
                             Block blk;
-                            if (moveNum == 1 && !b.equals(balls.get(0))) {
-                                System.out.println("delay");
-                                try {
-                                    Thread.sleep(300);
-                                } catch (Exception e) {
-                                }   
+                            if (idx != 0 && balls.get(idx-1).inMotion() && balls.get(idx - 1).getMoveNum() >= 0 && balls.get(idx - 1).getMoveNum() <= 6) {
+                                System.out.println("delay ");
+                                continue;
                             }
                             int[] arr = b.move();
                             if (arr[0] != -1 && arr[1] != -1)
@@ -245,13 +242,21 @@ public class Main extends JPanel implements Runnable
                                         whiteCircles.get(arr[1])[arr[0]] = null;
                                         add++;
                                     }
-                                }                           
+                                }
                             }
                         }
                         //repaint again to update all the balls, sets time delay
                         repaint();
+                        int count = 1;
+                        for (int i = 1; i < balls.size(); i++)
+                        {
+                            Ball ball = balls.get(i - 1);
+                            if (ball.getMoveNum() > 6)
+                                count++;
+                        }
+                        long timeDelay = (long)8 / count;
                         try {
-                            Thread.sleep(4);
+                            Thread.sleep(timeDelay);
                         } catch (Exception e) {
             
                         }
@@ -263,6 +268,8 @@ public class Main extends JPanel implements Runnable
                 inPlay = false;
                 for (int i = 0; i < add; i++) {
                     balls.add(new Ball(0, 0 ));
+                for (Ball b: balls)
+                    b.resetMoveNum();
                 }
             }
         }
