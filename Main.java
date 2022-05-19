@@ -10,7 +10,7 @@ public class Main extends JPanel implements Runnable
     private ArrayList<Ball> balls = new ArrayList<>();
     private ArrayList<Block[]> blocks = new ArrayList<Block[]>(8);
     private ArrayList<WhiteCircle[]> whiteCircles = new ArrayList<WhiteCircle[]>(8);
-    private boolean gameOver = false;
+    private static boolean gameOver = true;
     private final static int ballRadius = 12;
     private int round;
     private boolean inPlay = false;
@@ -81,13 +81,17 @@ public class Main extends JPanel implements Runnable
         }
         else if (!gameOver)
         {
-            g.setColor(Color.blue);
             for(int i = 0; i < blocks.size(); i++) {
                 for(int j = 0; j < blocks.get(i).length; j++) {
                     if (blocks.get(i)[j] != null)
                     {
+                        g.setColor(Color.blue);
                         g.fillRect(blocks.get(i)[j].paintCoord(j), blocks.get(i)[j].paintCoord(i), 
                             Block.getSide(), Block.getSide());
+                        g.setColor(Color.white);
+                        g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 50));
+                        g.drawString(blocks.get(i)[j].getNum() + "", blocks.get(i)[j].paintCoord(j)+40,
+                            blocks.get(i)[j].paintCoord(i)+65);
                     }
                 }
             }
@@ -112,7 +116,13 @@ public class Main extends JPanel implements Runnable
             
             g.setColor(Color.white);
             g.fillRect(740, 820, 10, 10);
-        }
+        }else if(gameOver){
+            g.setColor(Color.white);
+            g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 100));
+            g.drawString("BlockBuster", 200,400);
+            g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 30));
+            g.drawString("Click anywhere to play!", 200,700);
+        } 
     }
 
     public void run()
@@ -163,8 +173,7 @@ public class Main extends JPanel implements Runnable
                     int n = (int)(Math.random() * 7);
                     if (blocks.get(0)[n] == null)
                     {
-                        blocks.get(0)[n] = new Block(1);
-                        //new Block((int)(Math.random() * round * 2) + 1);
+                        blocks.get(0)[n] = new Block((int)(Math.random() * round * 2) + 1);
                     }
                 }
                 if (Math.random() < 0.5)
@@ -207,9 +216,14 @@ public class Main extends JPanel implements Runnable
                         Ball b = balls.get(idx);
                         if (b.inMotion()) {
                             Block blk;
+<<<<<<< HEAD
                             if (idx != 0 && balls.get(idx-1).inMotion() && balls.get(idx - 1).getMoveNum() >= 0 && balls.get(idx - 1).getMoveNum() <= 6) {
                                 System.out.println("delay ");
                                 continue;
+=======
+                            if (moveNum == 1 && !b.equals(balls.get(0))) {
+                                  
+>>>>>>> 59eda3a04eba390594d95c88ab4be53db772db53
                             }
                             int[] arr = b.move();
                             if (arr[0] != -1 && arr[1] != -1)
@@ -271,6 +285,8 @@ public class Main extends JPanel implements Runnable
                 for (Ball b: balls)
                     b.resetMoveNum();
                 }
+            }else{
+                repaint();
             }
         }
     }
@@ -289,28 +305,31 @@ public class Main extends JPanel implements Runnable
             public void mouseMoved(MouseEvent e) {}
 
             public void mouseClicked(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                System.out.println("mouse clicked at " + x + " " + y);
+                if(!gameOver){
+                    int x = e.getX();
+                    int y = e.getY();
+                    System.out.println("mouse clicked at " + x + " " + y);
 
-                if (y < 820 && !myPanel.inPlay())
-                {
-                    double angle = Math.toDegrees(Math.atan2(myPanel.getBalls().get(0).getY() - y, 
-                        x - myPanel.getBalls().get(0).getX()));
-                    if (angle < 0)
-                        angle += 180;
-                    for (Ball b : myPanel.getBalls())
+                    if (y < 820 && !myPanel.inPlay())
                     {
-                        b.changeAngle(angle);
+                        double angle = Math.toDegrees(Math.atan2(myPanel.getBalls().get(0).getY() - y, 
+                            x - myPanel.getBalls().get(0).getX()));
+                        if (angle < 0)
+                            angle += 180;
+                        for (Ball b : myPanel.getBalls())
+                        {
+                            b.changeAngle(angle);
+                        }
+                        myPanel.changePlay();
                     }
-                    myPanel.changePlay();
-                }
-                else if (x <= 750 && x >= 740 && y <= 830 && y >= 820 && !myPanel.inPlay())
-                {
-                    myPanel.changeColorScreen();
-                    myFrame.repaint();
-                }                 
-
+                    else if (x <= 750 && x >= 740 && y <= 830 && y >= 820 && !myPanel.inPlay())
+                    {
+                        myPanel.changeColorScreen();
+                        myFrame.repaint();
+                    }      
+                }else{
+                    gameOver = false;
+                }       
             }
 
             public void mousePressed(MouseEvent e) {}
