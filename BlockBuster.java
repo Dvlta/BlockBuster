@@ -16,6 +16,7 @@ public class BlockBuster extends JPanel implements Runnable
     private boolean inPlay = false;
     private boolean colorScreen = false;
     private ColorNode node; 
+    private int highScore;
     long delay = 0;
  
     public BlockBuster() 
@@ -26,6 +27,7 @@ public class BlockBuster extends JPanel implements Runnable
             whiteCircles.add(new WhiteCircle[7]);
         }
         round = 0;
+        highScore = 0;
 
         ColorNode w = new ColorNode(Color.white, null, null);
         ColorNode r = new ColorNode(Color.red, w, null);
@@ -45,9 +47,10 @@ public class BlockBuster extends JPanel implements Runnable
         
         node = w;
     }
-/*
+
     public void reset()
     {
+        System.out.println("reset");
         balls = new ArrayList<>();
         blocks = new ArrayList<Block[]>(8);
         whiteCircles = new ArrayList<WhiteCircle[]>(8); 
@@ -57,8 +60,9 @@ public class BlockBuster extends JPanel implements Runnable
             whiteCircles.add(new WhiteCircle[7]);
         }
         round = 0;
+        gameOver = false;
     }
-    */
+    
 
     public void setDelay(long d)
     {
@@ -153,11 +157,14 @@ public class BlockBuster extends JPanel implements Runnable
             g.drawString("BlockBuster", 140,400);
             g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 30));
             g.drawString("Click anywhere to play!", 230,700);
+            g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 50));
+            g.drawString("High Score: " + highScore, 230, 200);
         } 
     }
 
     public void run()
     {
+        System.out.println("run");
         while (true)
         {
             //if not over, begin a new round
@@ -178,8 +185,12 @@ public class BlockBuster extends JPanel implements Runnable
                     if (w != null)
                         gameOver = true;
                 if (gameOver)
-                    break;
-
+                {
+                    if (round > highScore)
+                        highScore = round;
+                    continue;
+                }
+                System.out.println("playing");
                 //begins the new round, generates new blocks and a new whiteCircle
                 round++;
                 int start = (int)(Math.random() * 751) + 5;
@@ -245,7 +256,7 @@ public class BlockBuster extends JPanel implements Runnable
                         Ball b = balls.get(idx);
                         if (b.inMotion()) {
                             Block blk;
-                           if (idx != 0 && balls.get(idx - 1).getMoveNum() >= 0 && balls.get(idx - 1).getMoveNum() <= 12) {
+                           if (idx != 0 && balls.get(idx - 1).inMotion() && balls.get(idx - 1).getMoveNum() >= 0 && balls.get(idx - 1).getMoveNum() <= 12) {
                                 continue;
                             }
                             //count++;
@@ -295,8 +306,6 @@ public class BlockBuster extends JPanel implements Runnable
                         {
                             delay = 11000000 / count;
                         }
-                        System.out.println(count + " delay " + delay);
-
                         if (count != 0)
                         {
                             try {
@@ -316,6 +325,10 @@ public class BlockBuster extends JPanel implements Runnable
                 }
             }else{
                 repaint();
+                try {
+                    Thread.sleep(5);
+                } catch (Exception e) {
+                }
             }
         }
     }
@@ -334,6 +347,7 @@ public class BlockBuster extends JPanel implements Runnable
             public void mouseMoved(MouseEvent e) {}
 
             public void mouseClicked(MouseEvent e) {
+                System.out.println(gameOver);
                 if(!gameOver){
                     int x = e.getX();
                     int y = e.getY();
@@ -365,10 +379,7 @@ public class BlockBuster extends JPanel implements Runnable
                         myFrame.repaint();
                     }      
                 }else{
-                    gameOver = false;
-                    //myPanel.reset();
-                    //myFrame.repaint();
-                    //new Thread(myPanel).start();
+                    myPanel.reset();
                 }       
             }
 
