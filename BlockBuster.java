@@ -215,10 +215,10 @@ public class BlockBuster extends JPanel implements Runnable
                     int n = (int)(Math.random() * 7);
                     if (blocks.get(0)[n] == null)
                     {
-                        blocks.get(0)[n] = new Block((int)(Math.random() * round * 2) + 1);
+                        blocks.get(0)[n] = new Block((int)(Math.random() * round + 1) + round);
                     }
                 }
-                if (Math.random() < 0.8)
+                if (Math.random() < 0.7)
                 {
                     while (true)
                     {
