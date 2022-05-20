@@ -5,6 +5,8 @@ public class Block
 
     /**
      * constructs a Block using an input number
+     * which represents the number of times a Ball has to 
+     * hit it before the Block disappears from the game grid
      * @param num
      */
     public Block(int num) 
@@ -24,8 +26,8 @@ public class Block
     }
 
     /**
-     * converts array number into a coordinate for painting
-     * @param c -  array coord
+     * converts an array coordinate into its GUI coordinate 
+     * @param c -  array coordinate
      * @return coordinate
      */
     public int paintCoord(int c)
@@ -42,7 +44,12 @@ public class Block
         return side;
     }
 
-    public int getNum(){
+    /**
+     * 
+     * @return the number on the block
+     */
+    public int getNum()
+    {
         return number;
     }
 }

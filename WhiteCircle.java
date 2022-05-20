@@ -15,6 +15,10 @@ public class WhiteCircle
         this.y = row * 110 + 20;
     }
 
+    /**
+     * updates y to the next row 
+     * (increments y by 110)
+     */
     public void incrementRow()
     {
         y += 110;
@@ -38,6 +42,10 @@ public class WhiteCircle
         return y;
     }
 
+    /**
+     * 
+     * @return diameter
+     */
     public static int getDiameter()
     {
         return diameter;
