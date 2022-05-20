@@ -218,7 +218,7 @@ public class BlockBuster extends JPanel implements Runnable
                         blocks.get(0)[n] = new Block((int)(Math.random() * round * 2) + 1);
                     }
                 }
-                if (Math.random() < 0.6)
+                if (Math.random() < 0.8)
                 {
                     while (true)
                     {
@@ -302,9 +302,9 @@ public class BlockBuster extends JPanel implements Runnable
                                 count++;
                         }
                         
-                        if (delay != 500000 && count != 0)
+                        if (count != 0)
                         {
-                            delay = 11000000 / count;
+                            delay = 8500000 / count;
                         }
                         if (count != 0)
                         {
@@ -325,10 +325,6 @@ public class BlockBuster extends JPanel implements Runnable
                 }
             }else{
                 repaint();
-                try {
-                    Thread.sleep(5);
-                } catch (Exception e) {
-                }
             }
         }
     }
@@ -359,19 +355,15 @@ public class BlockBuster extends JPanel implements Runnable
                             x - myPanel.getBalls().get(0).getX()));
                         if (angle < 0)
                             angle += 180;
-                        if (angle < 5 || angle > 175)
+                        if (angle > 5 && angle < 175)
                         {
-                            myPanel.setDelay(500000);
-                        }
-                        else {
-                            myPanel.setDelay(0);
-                        }
-                        for (Ball b : myPanel.getBalls())
-                        {
-                            b.changeAngle(angle);
-                            b.resetMoveNum();
-                        }
+                            for (Ball b : myPanel.getBalls())
+                            {
+                                b.changeAngle(angle);
+                                b.resetMoveNum();
+                            }
                         myPanel.changePlay();
+                        }
                     }
                     else if (x <= 750 && x >= 740 && y <= 830 && y >= 820 && !myPanel.inPlay())
                     {
