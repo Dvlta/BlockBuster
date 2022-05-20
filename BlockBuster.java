@@ -17,7 +17,7 @@ public class BlockBuster extends JPanel implements Runnable
     private boolean colorScreen = false;
     private ColorNode node; 
     private int highScore;
-    long delay = 0;
+    private long delay = 0;
  
     public BlockBuster() 
     {
