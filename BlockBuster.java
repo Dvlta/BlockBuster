@@ -292,28 +292,12 @@ public class BlockBuster extends JPanel implements Runnable
                                 }
                             }
                         }
-                        //repaint again to update all the balls, sets time delay
-                        repaint();
-                        int count = 0;
-                        for (int i = 0; i < balls.size(); i++)
-                        {
-                            Ball ball = balls.get(i);
-                            if (ball.getMoveNum() > 0)
-                                count++;
-                        }
-                        
-                        if (count != 0)
-                        {
-                            delay = 8500000 / count;
-                        }
-                        if (count != 0)
-                        {
-                            try {
-                                Thread.sleep(delay / 1000000, (int)(delay % 1000000));
-                            } catch (Exception e) {
-                
-                            }
-                        }
+                    }
+                    repaint();
+                    try {
+                        Thread.sleep(8);
+                    } catch (Exception e) {
+        
                     }
                 }
                 repaint();
