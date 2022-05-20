@@ -23,8 +23,8 @@ public class Ball
      */
     public Ball(double angle, int posX)
     {
-        speedX = (6 * Math.cos(Math.toRadians(angle)));
-        speedY = -(6 * Math.sin(Math.toRadians(angle)));
+        speedX = (12 * Math.cos(Math.toRadians(angle)));
+        speedY = -(12 * Math.sin(Math.toRadians(angle)));
         x = posX;
         y = 820;
         moveNum = 0;
@@ -56,8 +56,8 @@ public class Ball
      */
     public void changeAngle(double angle)
     {
-        speedX = 6 * Math.cos(Math.toRadians(angle));
-        speedY = -6 * Math.sin(Math.toRadians(angle));
+        speedX = 12 * Math.cos(Math.toRadians(angle));
+        speedY = -12 * Math.sin(Math.toRadians(angle));
         System.out.println(angle + " " + speedX + " " + speedY);
     }
 
@@ -94,7 +94,7 @@ public class Ball
      * 
      * @return number of stopped balls
      */
-    public int stopped()
+    public static int stopped()
     {
         return stopped;
     }
@@ -113,17 +113,19 @@ public class Ball
      */
     public int[] move()
     {   
-        //System.out.println("move" + x + " " + y);
         x += speedX;
         y += speedY;
 
         moveNum++;
+
+        /*
         if (speedX < 0)
             if (x - radius + speedX < 0)
                 speedX *= -1;
         if (speedX > 0)
-            if (x + radius + speedX > 730)
+            if (x + radius + speedX > 760)
                 speedX *= -1;
+                */
 
         if (speedY < 0)
             nextY = y - radius + speedY;
@@ -135,23 +137,27 @@ public class Ball
         else if (speedX > 0)
             nextX = x + radius + speedY;
 
+        //change x/y direction if ball hits the wall
         if (nextX < 0 || nextX > 760)
             speedX *= -1;
         if (nextY < 0)
             speedY *= -1;
 
 
-        if (nextY > 820)
+
+        if (y > 820)
+        {
             stopped++;
+        }
 
         
         int arrayX = -1;
         int arrayY = -1;
-        if (!(nextX / 110 < 110 && nextX / 110 > 100) && !(nextY / 110 < 110 && nextY / 110 > 100))
+        if (!(nextX / 110 < 110 && nextX / 110 > 100) && !(nextY / 110 < 110 && nextY / 110 > 100) && nextX > 0 && 
+            nextX < 760 && nextY >= 0 && nextY <= 760)
             {
-                arrayX = ((int)nextX - (int)nextX / 110 * 10) / 100;
-                arrayY = ((int)nextY - (int)nextY / 110 * 10) / 100;
-                //System.out.println("ball position" + nextX + " " + nextY +" " + arrayX + " " + arrayY);
+                arrayX = (((int)nextX - (int)nextX / 110 * 10) - 1)/ 100;
+                arrayY = (((int)nextY - (int)nextY / 110 * 10) -1)/ 100;
             }
 
         return new int[]{arrayX, arrayY};
