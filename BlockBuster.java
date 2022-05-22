@@ -17,7 +17,6 @@ public class BlockBuster extends JPanel implements Runnable
     private boolean colorScreen = false;
     private ColorNode node; 
     private int highScore;
-    private long delay = 0;
  
     public BlockBuster() 
     {
@@ -61,12 +60,6 @@ public class BlockBuster extends JPanel implements Runnable
         }
         round = 0;
         gameOver = false;
-    }
-    
-
-    public void setDelay(long d)
-    {
-        delay = d;
     }
 
     public boolean inPlay()
