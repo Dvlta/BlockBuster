@@ -62,6 +62,11 @@ public class BlockBuster extends JPanel implements Runnable
         gameOver = false;
     }
 
+    public void setNode(ColorNode n)
+    {
+        node = n;
+    }
+
     public boolean inPlay()
     {
         return inPlay;
@@ -83,9 +88,19 @@ public class BlockBuster extends JPanel implements Runnable
             colorScreen = true;
     }
 
+    public boolean getColorScreen()
+    {
+        return colorScreen;
+    }
+
     public ArrayList<Ball> getBalls()
     {
         return balls;
+    }
+
+    public ColorNode getNode()
+    {
+        return node;
     }
 
     public void paintComponent(Graphics g)
@@ -94,7 +109,23 @@ public class BlockBuster extends JPanel implements Runnable
         if (colorScreen)
         {
             //add in color list later
-            g.drawRect(100,100,100,100);
+            g.setColor(Color.white);
+            g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 40));
+            g.drawString("Click on a Color to Choose", 160, 200);
+
+            g.drawString("Exit to Main Menu:", 180, 700);
+            g.fillRect(530, 665, 50, 50);
+
+            g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 20));
+            g.drawString("Selected Color", 85, 320);
+            g.setColor(node.getColor());
+            g.fillRect(100,350,100,100);
+
+            g.setColor(node.getNext().getColor());
+            g.fillRect(340,350,100,100);
+
+            g.setColor(node.getNext().getNext().getColor());
+            g.fillRect(580,350,100,100);
         }
         else if (!gameOver)
         {
@@ -140,10 +171,6 @@ public class BlockBuster extends JPanel implements Runnable
                     g.drawString("x" + balls.size(), (int)b.getX() - 10, (int)b.getY() + 28);
                 }
             }
-            
-            
-            g.setColor(Color.white);
-            g.fillRect(740, 820, 10, 10);
         }else if(gameOver){
             g.setColor(Color.white);
             g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 100));
@@ -152,6 +179,11 @@ public class BlockBuster extends JPanel implements Runnable
             g.drawString("Click anywhere to play!", 230,700);
             g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 50));
             g.drawString("High Score: " + highScore, 230, 200);
+
+            g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 20));
+            g.drawString("Access Color Menu:", 500, 790);
+            g.setColor(Color.white);
+            g.fillRect(670, 770, 25, 25);
         } 
     }
 
@@ -320,12 +352,11 @@ public class BlockBuster extends JPanel implements Runnable
             public void mouseMoved(MouseEvent e) {}
 
             public void mouseClicked(MouseEvent e) {
-                System.out.println(gameOver);
-                if(!gameOver){
-                    int x = e.getX();
-                    int y = e.getY();
-                    System.out.println("mouse clicked at " + x + " " + y);
-
+                int x = e.getX();
+                int y = e.getY();
+                if(!gameOver)
+                {
+                    System.out.println("mouse clicked at " + x + " " + y);  
                     if (y < 820 && !myPanel.inPlay())
                     {
                         double angle = Math.toDegrees(Math.atan2(myPanel.getBalls().get(0).getY() - y, 
@@ -341,14 +372,45 @@ public class BlockBuster extends JPanel implements Runnable
                             }
                         myPanel.changePlay();
                         }
-                    }
-                    else if (x <= 750 && x >= 740 && y <= 830 && y >= 820 && !myPanel.inPlay())
+                    }   
+                } else
+                {
+                    System.out.println("mouse clicked at " + x + " " + y);  
+                    if (myPanel.getColorScreen())
                     {
+                        if (x >= 530 && x <= 580 && y >= 690 && y <= 740)
+                        {
+                            myPanel.changeColorScreen();
+                            myFrame.repaint();
+                        }
+                        else if (x >= 100 && x <= 200 && y <= 450 && y >= 350)
+                        {
+                            Ball.changeColor(myPanel.getNode().getColor());
+                        }
+                        else if (x >= 340 && x <= 440 && y <= 450 && y >= 350)
+                        {
+                            Ball.changeColor(myPanel.getNode().getNext().getColor());
+                            myPanel.setNode(myPanel.getNode().getNext());
+                            myFrame.repaint();
+                        }
+                        else if (x <= 680 && x >= 580 && y <= 450 && y >= 350)
+                        {
+                            Ball.changeColor(myPanel.getNode().getNext().getNext().getColor());
+                            myPanel.setNode(myPanel.getNode().getNext().getNext());
+                            myFrame.repaint();
+                        }
+                    }
+                    else if (x <= 695 && x >= 670 && y <= 820 && y >= 795)
+                    {
+                        System.out.println("color");
                         myPanel.changeColorScreen();
                         myFrame.repaint();
-                    }      
-                }else{
-                    myPanel.reset();
+                    } 
+                    else 
+                    {
+                        System.out.println("reset");
+                        myPanel.reset();
+                    }
                 }       
             }
 
