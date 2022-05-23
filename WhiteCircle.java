@@ -1,3 +1,7 @@
+/**
+ * @author Leo, Nicholas, Tristan
+ * @version 05 - 23 - 2022
+ */
 public class WhiteCircle 
 {
     private int x;

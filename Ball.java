@@ -1,4 +1,8 @@
 import java.awt.Color;
+/**
+ * @author Leo, Nicholas, Tristan
+ * @version 05 - 23 - 2022
+ */
 public class Ball
 {
     private static final int radius = 12;

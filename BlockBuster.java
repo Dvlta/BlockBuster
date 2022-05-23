@@ -4,7 +4,10 @@ import javax.swing.event.MouseInputListener;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-
+/**
+ * @author Nicholas, Leo, Tristan
+ * @version 05 - 23 - 2022
+ */
 public class BlockBuster extends JPanel implements Runnable
 {
     private ArrayList<Ball> balls = new ArrayList<>();

@@ -1,3 +1,8 @@
+/**
+ * @author Tristan, Nicholas, Leo
+ * @version 05 - 23 - 2022
+ */
+
 public class Block 
 {
     private static final int side = 100;
