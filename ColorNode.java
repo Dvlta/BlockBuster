@@ -1,4 +1,8 @@
 import java.awt.Color;
+/**
+ * @author Tristan, Nicholas, Leo
+ * @version 05 - 23 - 2022
+ */
 public class ColorNode 
 {
     private Color color;
