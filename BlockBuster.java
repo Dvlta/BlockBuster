@@ -166,6 +166,7 @@ public class BlockBuster extends JPanel implements Runnable
             g.setColor(Ball.getColor());
             for (Ball b: balls)
             {
+                g.setColor(Ball.getColor());
                 g.fillOval((int)(b.getX() - ballRadius), (int)(b.getY() - ballRadius), ballRadius*2, ballRadius*2);
                 if (!inPlay)
                 {
@@ -184,8 +185,8 @@ public class BlockBuster extends JPanel implements Runnable
             g.drawString("High Score: " + highScore, 230, 200);
 
             g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 20));
-            g.drawString("Access Color Menu:", 500, 790);
-            g.setColor(Color.white);
+            g.drawString("Access Color Menu:", 490, 790);
+            g.setColor(Ball.getColor());
             g.fillRect(670, 770, 25, 25);
         } 
     }
