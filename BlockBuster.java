@@ -96,11 +96,18 @@ public class BlockBuster extends JPanel implements Runnable
         return colorScreen;
     }
 
+    /**
+     * 
+     * @return the arraylist of balls
+     */
     public ArrayList<Ball> getBalls()
     {
         return balls;
     }
-
+    /**
+     * 
+     * @return the color node
+     */
     public ColorNode getNode()
     {
         return node;
