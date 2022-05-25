@@ -74,7 +74,6 @@ public class Ball
     {
         speedX = 12 * Math.cos(Math.toRadians(angle));
         speedY = -12 * Math.sin(Math.toRadians(angle));
-        System.out.println(angle + " " + speedX + " " + speedY);
     }
 
     /**

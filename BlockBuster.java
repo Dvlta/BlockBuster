@@ -10,27 +10,23 @@ import java.awt.event.MouseEvent;
  */
 public class BlockBuster extends JPanel implements Runnable
 {
-    private ArrayList<Ball> balls = new ArrayList<>();
-    private ArrayList<Block[]> blocks = new ArrayList<Block[]>(8);
-    private ArrayList<WhiteCircle[]> whiteCircles = new ArrayList<WhiteCircle[]>(8);
-    private static boolean gameOver = true;
-    private final static int ballRadius = 12;
+    private ArrayList<Ball> balls;
+    private ArrayList<Block[]> blocks;
+    private ArrayList<WhiteCircle[]> whiteCircles;
+    private boolean gameOver = true;
     private int round;
     private boolean inPlay = false;
     private boolean colorScreen = false;
     private ColorNode node; 
     private int highScore;
  
+    /**
+     * generates a doubly linked list of colors and sets the current node to white
+     * sets high score to 0
+     */
     public BlockBuster() 
     {
-        for (int i = 0; i < 8; i++)
-        {
-            blocks.add(new Block[7]);
-            whiteCircles.add(new WhiteCircle[7]);
-        }
-        round = 0;
         highScore = 0;
-
         ColorNode w = new ColorNode(Color.white, null, null);
         ColorNode r = new ColorNode(Color.red, w, null);
         ColorNode o = new ColorNode(Color.orange, r, null);
@@ -46,13 +42,15 @@ public class BlockBuster extends JPanel implements Runnable
         y.setNext(g);
         g.setNext(b);
         b.setNext(p);
-        
         node = w;
     }
 
+    /**
+     * resets the balls, blocks, and whiteCircles
+     * updates round number to 0 and begins a new game
+     */
     public void reset()
     {
-        System.out.println("reset");
         balls = new ArrayList<>();
         blocks = new ArrayList<Block[]>(8);
         whiteCircles = new ArrayList<WhiteCircle[]>(8); 
@@ -65,16 +63,34 @@ public class BlockBuster extends JPanel implements Runnable
         gameOver = false;
     }
 
+    /**
+     * sets the node
+     * @param n
+     */
     public void setNode(ColorNode n)
     {
         node = n;
     }
 
+    /**
+     * 
+     * @return if balls are in motion
+     */
     public boolean inPlay()
     {
         return inPlay;
     }
 
+    /**
+     * @return if game is over
+     */
+    public boolean gameOver()
+    {
+        return gameOver;
+    }
+    /**
+     * changes the boolean inPlay
+     */
     public void changePlay()
     {
         if (inPlay())
@@ -83,6 +99,9 @@ public class BlockBuster extends JPanel implements Runnable
             inPlay = true;
     }
 
+    /**
+     * changes the boolean colorScreen
+     */
     public void changeColorScreen()
     {
         if (colorScreen)
@@ -91,6 +110,10 @@ public class BlockBuster extends JPanel implements Runnable
             colorScreen = true;
     }
 
+    /**
+     * 
+     * @return if currently in the color menu
+     */
     public boolean getColorScreen()
     {
         return colorScreen;
@@ -113,6 +136,9 @@ public class BlockBuster extends JPanel implements Runnable
         return node;
     }
 
+    /**
+     * paints the GUI
+     */
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -127,14 +153,14 @@ public class BlockBuster extends JPanel implements Runnable
             g.fillRect(530, 665, 50, 50);
 
             g.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 20));
-            g.drawString("Selected Color", 85, 320);
-            g.setColor(node.getColor());
+            g.drawString("Selected Color", 325, 320);
+            g.setColor(node.getPrevious().getColor());
             g.fillRect(100,350,100,100);
 
-            g.setColor(node.getNext().getColor());
+            g.setColor(node.getColor());
             g.fillRect(340,350,100,100);
 
-            g.setColor(node.getNext().getNext().getColor());
+            g.setColor(node.getNext().getColor());
             g.fillRect(580,350,100,100);
         }
         else if (!gameOver)
@@ -174,7 +200,7 @@ public class BlockBuster extends JPanel implements Runnable
             for (Ball b: balls)
             {
                 g.setColor(Ball.getColor());
-                g.fillOval((int)(b.getX() - ballRadius), (int)(b.getY() - ballRadius), ballRadius*2, ballRadius*2);
+                g.fillOval((int)(b.getX() - Ball.getRadius()), (int)(b.getY() - Ball.getRadius()), Ball.getRadius() * 2, Ball.getRadius() * 2);
                 if (!inPlay)
                 {
                     g.setColor(Color.white);
@@ -198,9 +224,11 @@ public class BlockBuster extends JPanel implements Runnable
         } 
     }
 
+    /**
+     * runs and generates the game
+     */
     public void run()
     {
-        System.out.println("run");
         while (true)
         {
             //if not over, begin a new round
@@ -226,7 +254,6 @@ public class BlockBuster extends JPanel implements Runnable
                         highScore = round;
                     continue;
                 }
-                System.out.println("playing");
                 //begins the new round, generates new blocks and a new whiteCircle
                 round++;
                 int start = (int)(Math.random() * 751) + 5;
@@ -266,23 +293,18 @@ public class BlockBuster extends JPanel implements Runnable
                         }
                     }
                 }
-
-                //random starting position of balls
                 for (Ball b: balls)
                     b.updateStart(start);
 
-                //repaint with new blocks/whiteCircles
-                System.out.println("Repainted");
                 repaint();
                 
-                //waits until the mouse has been clicked and the game is in play
                 while (!inPlay) {
                     try {
                         Thread.sleep(100);
                     } catch (Exception e) {
                     }
                 }
-                //keeps going until all the balls have stopped
+                //keeps going until all the balls have stopped moving
                 int add = 0;
                 while (balls.size() > Ball.stopped())
                 {
@@ -333,17 +355,16 @@ public class BlockBuster extends JPanel implements Runnable
                     try {
                         Thread.sleep(8);
                     } catch (Exception e) {
-        
                     }
                 }
                 repaint();
                 Ball.reset();
-                System.out.println("not inplay");
                 inPlay = false;
                 for (int i = 0; i < add; i++) {
                     balls.add(new Ball(0, 0 ));
                 }
-            }else{
+            } else
+            {
                 repaint();
             }
         }
@@ -365,9 +386,8 @@ public class BlockBuster extends JPanel implements Runnable
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                if(!gameOver)
+                if(!myPanel.gameOver())
                 {
-                    System.out.println("mouse clicked at " + x + " " + y);  
                     if (y < 820 && !myPanel.inPlay())
                     {
                         double angle = Math.toDegrees(Math.atan2(myPanel.getBalls().get(0).getY() - y, 
@@ -386,7 +406,6 @@ public class BlockBuster extends JPanel implements Runnable
                     }   
                 } else
                 {
-                    System.out.println("mouse clicked at " + x + " " + y);  
                     if (myPanel.getColorScreen())
                     {
                         if (x >= 530 && x <= 580 && y >= 690 && y <= 740)
@@ -396,30 +415,24 @@ public class BlockBuster extends JPanel implements Runnable
                         }
                         else if (x >= 100 && x <= 200 && y <= 450 && y >= 350)
                         {
-                            Ball.changeColor(myPanel.getNode().getColor());
+                            Ball.changeColor(myPanel.getNode().getPrevious().getColor());
+                            myPanel.setNode(myPanel.getNode().getPrevious());
+                            myFrame.repaint();
                         }
-                        else if (x >= 340 && x <= 440 && y <= 450 && y >= 350)
+                        else if (x <= 680 && x >= 580 && y <= 450 && y >= 350)
                         {
                             Ball.changeColor(myPanel.getNode().getNext().getColor());
                             myPanel.setNode(myPanel.getNode().getNext());
                             myFrame.repaint();
                         }
-                        else if (x <= 680 && x >= 580 && y <= 450 && y >= 350)
-                        {
-                            Ball.changeColor(myPanel.getNode().getNext().getNext().getColor());
-                            myPanel.setNode(myPanel.getNode().getNext().getNext());
-                            myFrame.repaint();
-                        }
                     }
                     else if (x <= 695 && x >= 670 && y <= 820 && y >= 795)
                     {
-                        System.out.println("color");
                         myPanel.changeColorScreen();
                         myFrame.repaint();
                     } 
                     else 
                     {
-                        System.out.println("reset");
                         myPanel.reset();
                     }
                 }       
