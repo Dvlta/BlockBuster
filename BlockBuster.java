@@ -309,7 +309,6 @@ public class BlockBuster extends JPanel implements Runnable
                 while (balls.size() > Ball.stopped())
                 {
                     inPlay = true;
-                    //int count = 0;
                     for (int idx = 0; idx < balls.size(); idx++) {
                         Ball b = balls.get(idx);
                         if (b.inMotion()) {
@@ -317,7 +316,6 @@ public class BlockBuster extends JPanel implements Runnable
                            if (idx != 0 && balls.get(idx - 1).inMotion() && balls.get(idx - 1).getMoveNum() >= 0 && balls.get(idx - 1).getMoveNum() <= 12) {
                                 continue;
                             }
-                            //count++;
                             int[] arr = b.move();
                             if (arr[0] != -1 && arr[1] != -1)
                             {
