@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 /**
  * @author Nicholas, Leo, Tristan
  * @version 05 - 23 - 2022
+ * Main class for Blockbuster. Contains all of the game components
+ * and logic for running the game
  */
 public class BlockBuster extends JPanel implements Runnable
 {
@@ -21,8 +22,8 @@ public class BlockBuster extends JPanel implements Runnable
     private int highScore;
  
     /**
-     * generates a doubly linked list of colors and sets the current node to white
-     * sets high score to 0
+     * generates a doubly linked list of colors and sets the current node to white 
+     * and high score to 0
      */
     public BlockBuster() 
     {
@@ -46,7 +47,7 @@ public class BlockBuster extends JPanel implements Runnable
     }
 
     /**
-     * resets the balls, blocks, and whiteCircles
+     * resets the balls, blocks, and whiteCircles.
      * updates round number to 0 and begins a new game
      */
     public void reset()
@@ -65,7 +66,7 @@ public class BlockBuster extends JPanel implements Runnable
 
     /**
      * sets the node
-     * @param n
+     * @param n the node
      */
     public void setNode(ColorNode n)
     {
@@ -73,7 +74,7 @@ public class BlockBuster extends JPanel implements Runnable
     }
 
     /**
-     * 
+     * returns whether balls are in motion
      * @return if balls are in motion
      */
     public boolean inPlay()
@@ -81,7 +82,7 @@ public class BlockBuster extends JPanel implements Runnable
         return inPlay;
     }
 
-    /**
+    /** returns whether the game is over
      * @return if game is over
      */
     public boolean gameOver()
@@ -89,29 +90,23 @@ public class BlockBuster extends JPanel implements Runnable
         return gameOver;
     }
     /**
-     * changes the boolean inPlay
+     * negates the boolean inPlay
      */
     public void changePlay()
     {
-        if (inPlay())
-            inPlay = false;
-        else
-            inPlay = true;
+        inPlay = !inPlay;
     }
 
     /**
-     * changes the boolean colorScreen
+     * negates the boolean colorScreen
      */
     public void changeColorScreen()
     {
-        if (colorScreen)
-            colorScreen = false;
-        else
-            colorScreen = true;
+        colorScreen = !colorScreen;
     }
 
     /**
-     * 
+     * return whether currently in the color menu
      * @return if currently in the color menu
      */
     public boolean getColorScreen()
@@ -120,7 +115,7 @@ public class BlockBuster extends JPanel implements Runnable
     }
 
     /**
-     * 
+     * return the ArrayList of balls
      * @return the arraylist of balls
      */
     public ArrayList<Ball> getBalls()
@@ -128,7 +123,7 @@ public class BlockBuster extends JPanel implements Runnable
         return balls;
     }
     /**
-     * 
+     * returns the color node
      * @return the color node
      */
     public ColorNode getNode()
@@ -138,6 +133,7 @@ public class BlockBuster extends JPanel implements Runnable
 
     /**
      * paints the GUI
+     * @param g graphics
      */
     public void paintComponent(Graphics g)
     {
@@ -304,7 +300,6 @@ public class BlockBuster extends JPanel implements Runnable
                     } catch (Exception e) {
                     }
                 }
-                //keeps going until all the balls have stopped moving
                 int add = 0;
                 while (balls.size() > Ball.stopped())
                 {

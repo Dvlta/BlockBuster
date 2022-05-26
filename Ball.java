@@ -2,6 +2,8 @@ import java.awt.Color;
 /**
  * @author Leo, Nicholas, Tristan
  * @version 05 - 23 - 2022
+ * Represents a ball in the game which the player shoots
+ * to destroy Blocks and White Circles
  */
 public class Ball
 {
@@ -17,7 +19,8 @@ public class Ball
     private int moveNum;
     
     /**
-     * creates a Ball object with a launch angle and a center
+     * Creates a Ball object with a given launch angle and a center at posX.
+     * Sets y to 820, the bottom of the screen
      * @param angle launch angle
      * @param posX x-coordinate of the center
      * @param posY y-coordinate of the center
@@ -32,7 +35,7 @@ public class Ball
     }
 
     /**
-     * 
+     * returns the move number
      * @return move number
      */
     public int getMoveNum()
@@ -57,7 +60,7 @@ public class Ball
     }
 
     /**
-     * 
+     * returns the radius
      * @return radius
      */
     public static int getRadius()
@@ -88,9 +91,9 @@ public class Ball
     }
 
     /**
-     * 
+     * if the ball has not finished moving 
      * @return if the ball has not finished moving 
-     *  (when it is still in bounds)
+     *  (aka when it is still in bounds)
      */
     public boolean inMotion()
     {
@@ -113,7 +116,7 @@ public class Ball
         speedY *= -1;
     }
     /**
-     * 
+     * return number of stopped balls
      * @return number of stopped balls
      */
     public static int stopped()
@@ -170,7 +173,7 @@ public class Ball
     }
 
     /**
-     * 
+     * returns the x-coordinate of its center
      * @return x-coordinate
      */
     public double getX()
@@ -179,7 +182,7 @@ public class Ball
     }
 
     /**
-     * 
+     * returns the y-coordinate of its center
      * @return y-coordinate
      */
     public double getY()
@@ -188,7 +191,7 @@ public class Ball
     }
 
     /**
-     * 
+     * returns the x-coordinate of next position
      * @return x-coordinate of next position
      */
     public double getNextX()
@@ -197,7 +200,7 @@ public class Ball
     }
     
     /**
-     * 
+     * returns the y-coordinate of next position
      * @return y-coordinate of next position
      */
     public double getNextY()
@@ -206,8 +209,8 @@ public class Ball
     }
 
     /**
-     * 
-     * @param c - the color to change the balls to
+     * sets the value of the static variable color
+     * @param c the new color
      */
     public static void changeColor(Color c)
     {
@@ -215,7 +218,7 @@ public class Ball
     }
 
     /**
-     * 
+     * returns the color of the balls
      * @return the color of the balls
      */
     public static Color getColor()

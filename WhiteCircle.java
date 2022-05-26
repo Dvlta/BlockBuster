@@ -1,6 +1,8 @@
 /**
  * @author Leo, Nicholas, Tristan
  * @version 05 - 23 - 2022
+ * WhiteCircle represents a white circle in Blockbuster which,
+ * when hit by a ball, gives the player an another ball
  */
 public class WhiteCircle 
 {
@@ -29,7 +31,7 @@ public class WhiteCircle
     }
 
     /**
-     * 
+     * returns the x-coordinate of its top-left corner
      * @return x
      */
     public int getX()
@@ -38,7 +40,7 @@ public class WhiteCircle
     }
 
     /**
-     * 
+     * returns the x-coordinate of its top-left corner
      * @return y
      */
     public int getY()
@@ -47,7 +49,7 @@ public class WhiteCircle
     }
 
     /**
-     * 
+     * returns its diameter
      * @return diameter
      */
     public static int getDiameter()

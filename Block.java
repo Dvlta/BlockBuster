@@ -1,6 +1,8 @@
 /**
  * @author Tristan, Nicholas, Leo
  * @version 05 - 23 - 2022
+ * Block is the primary obstacle in the game which
+ * balls reflect off of and destroy
  */
 
 public class Block 
@@ -41,7 +43,7 @@ public class Block
     }
 
     /**
-     * 
+     * returns the side length
      * @return the side length
      */
     public static int getSide()
@@ -50,7 +52,7 @@ public class Block
     }
 
     /**
-     * 
+     * returns the block number
      * @return the number on the block
      */
     public int getNum()

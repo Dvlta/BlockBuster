@@ -2,13 +2,15 @@ import java.awt.Color;
 /**
  * @author Tristan, Nicholas, Leo
  * @version 05 - 23 - 2022
+ * ColorNode represents a circular doubly linked list, 
+ * and each node holds a color
  */
 public class ColorNode 
 {
     private Color color;
-
     private ColorNode previous;
     private ColorNode next;
+
     /**
      * constructs a linkedlist of Color objects
      * @param initialColor - the initial color
